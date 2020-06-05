@@ -1,4 +1,5 @@
 import sys
+import os
 import pandas as pd
 from sqlalchemy import create_engine
 
@@ -12,12 +13,25 @@ def load_data(messages_filepath, categories_filepath):
 
 def clean_data(df):
     categories = df['categories'].str.split(pat=';', expand=True)
+
+    # select the first row of the categories dataframe
+    row = categories.iloc[0]
+
+    # use this row to extract a list of new column names for categories.
+    # one way is to apply a lambda function that takes everything
+    # up to the second to last character of each string with slicing
+    category_colnames = row.map(lambda x: x.rstrip('-0 -1'))
+
+    # rename the columns of `categories`
+    categories.columns = category_colnames
+
     for column in categories:
         # set each value to be the last character of the string
         categories[column] = categories[column].astype(str).apply(lambda x: x[-1])
 
         # convert column from string to numeric
         categories[column] = categories[column].astype(int)
+
     df = df.drop(columns=['categories'])
     df = pd.concat([df, categories], axis=1)
     df.drop_duplicates(inplace=True)
@@ -25,7 +39,8 @@ def clean_data(df):
 
 
 def save_data(df, database_filename):
-    engine = create_engine(database_filename)
+    database_path = 'sqlite:///' + database_filename
+    engine = create_engine(database_path)
     df.to_sql('project', engine, index=False)
 
 
