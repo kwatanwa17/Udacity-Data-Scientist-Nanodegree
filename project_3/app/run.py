@@ -38,7 +38,7 @@ engine = create_engine('sqlite:///data/project.db')
 df = pd.read_sql_table('project', engine)
 
 # load model
-model_path = os.path.abspath("models/new_model.pickle")
+model_path = os.path.abspath("models/classifier.pkl")
 # "/models/new_model.pickle"
 model = joblib.load(model_path)
 
@@ -48,28 +48,26 @@ model = joblib.load(model_path)
 @app.route('/index')
 def index():
     # extract data needed for visuals
-    # TODO: Below is an example - modify to extract data for your own visuals
-    genre_counts = df.groupby('genre').count()['message']
-    genre_names = list(genre_counts.index)
+    category_counts = df.iloc[:,4:].sum().sort_values(ascending=False).values
+    category_names = list(df.iloc[:,4:].columns.values)
 
     # create visuals
-    # TODO: Below is an example - modify to create your own visuals
     graphs = [
         {
             'data': [
                 Bar(
-                    x=genre_names,
-                    y=genre_counts
+                    x=category_names,
+                    y=category_counts
                 )
             ],
 
             'layout': {
-                'title': 'Distribution of Message Genres',
+                'title': 'Frequency of each category',
                 'yaxis': {
                     'title': "Count"
                 },
                 'xaxis': {
-                    'title': "Genre"
+                    'title': "Category"
                 }
             }
         }
