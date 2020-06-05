@@ -1,5 +1,20 @@
 # Disaster Response Pipeline Project
 
+### About
+This repository is for the Disaster Response Pipeline Project of the Udacity Data Scientist Nanodegree.
+
+### Content: 
+
+#### Folders
+- app: flask app, templates and and a helper module (starting_verb_extractor.py)
+- data: original data and data processing script
+- models: train script and a helper module (starting_verb_extractor.py)
+- notebooks: course jupyter notebooks 
+
+#### Files
+- image.png: engaging image
+- requirements.txt: used python packages
+
 ### Instructions:
 1. Run the following command in the project's root directory to install the required packages.
     ```python
