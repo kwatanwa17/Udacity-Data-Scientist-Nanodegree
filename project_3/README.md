@@ -1,14 +1,14 @@
 # Disaster Response Pipeline Project
 
 ### Instructions:
-1. Run the following command to install the required packages.
+1. Run the following command in the project's root directory to install the required packages.
     ```python
-    pip install -r requirement.txt
+    pip install -r requirements.txt
     ```
    I highly recommend you to use a virtual environment in order to separate it from your python environment. For example,
     `python venv -m project3`
    
-2. Run the following commands in the project's root directory to set up your database and model. **You can skip this step as I already have set up all required data and model.**
+2. Run the following commands to set up your database and model. **You can skip this step as I already have set up all required data and model.**
 
     - To run ETL pipeline that cleans data and stores in database
         `python data/process_data.py data/disaster_messages.csv data/disaster_categories.csv data/project.db`
