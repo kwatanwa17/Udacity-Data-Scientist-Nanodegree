@@ -16,7 +16,6 @@ import sys
 
 from starting_verb_extractor import StartingVerbExtractor
 
-
 app = Flask(__name__)
 
 
@@ -38,7 +37,6 @@ def tokenize(text):
     return clean_tokens
 
 
-
 # load data
 engine = create_engine('sqlite:///data/project.db')
 df = pd.read_sql_table('project', engine)
@@ -57,8 +55,11 @@ def index():
     This function displays the index page
     """
     # extract data needed for visuals
-    category_counts = df.iloc[:,4:].sum().sort_values(ascending=False).values
-    category_names = list(df.iloc[:,4:].columns.values)
+    category_counts = df.iloc[:, 4:].sum().sort_values(ascending=False).values
+    category_names = list(df.iloc[:, 4:].columns.values)
+
+    genre_counts = df.iloc[:, 3].value_counts().values
+    genre_names = list(df.iloc[:, 3].unique())
 
     # create visuals
     graphs = [
@@ -78,6 +79,24 @@ def index():
                 'xaxis': {
                     'title': "Category"
                 }
+            }
+        },
+        {
+            'data': [
+                Bar(
+                    x=genre_names,
+                    y=genre_counts,
+                )
+            ],
+
+            'layout': {
+                'title': 'Frequency of each genre',
+                'yaxis': {
+                    'title': "Count"
+                },
+                'xaxis': {
+                    'title': "Genre"
+                },
             }
         }
     ]
