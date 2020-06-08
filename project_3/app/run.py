@@ -21,6 +21,12 @@ app = Flask(__name__)
 
 
 def tokenize(text):
+    """
+    This function tokenize a text.
+
+    :param text: a text to tokenize
+    :return: a list of tokens
+    """
     tokens = word_tokenize(text)
     lemmatizer = WordNetLemmatizer()
 
@@ -47,6 +53,9 @@ model = joblib.load(model_path)
 @app.route('/')
 @app.route('/index')
 def index():
+    """
+    This function displays the index page
+    """
     # extract data needed for visuals
     category_counts = df.iloc[:,4:].sum().sort_values(ascending=False).values
     category_names = list(df.iloc[:,4:].columns.values)
@@ -84,6 +93,10 @@ def index():
 # web page that handles user query and displays model results
 @app.route('/go')
 def go():
+    """
+    This function displays the searched result
+    """
+
     # save user input in query
     query = request.args.get('query', '')
 
@@ -100,6 +113,9 @@ def go():
 
 
 def main():
+    """
+    This function runs the flask app
+    """
     app.run(host='0.0.0.0', port=3001, debug=True)
 
 

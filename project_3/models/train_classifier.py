@@ -25,6 +25,11 @@ from starting_verb_extractor import StartingVerbExtractor
 
 
 def load_data(database_filepath):
+    """
+    This function loads data from the SQL database
+    :param database_filepath: path of the SQL database
+    """
+
     engine = create_engine('sqlite:///' + database_filepath)
     df = pd.read_sql_table('project', con=engine)
     X = df['message']
@@ -42,6 +47,13 @@ def load_data(database_filepath):
 
 
 def tokenize(text):
+    """
+    This function tokenize a text.
+
+    :param text: a text to tokenize
+    :return: a list of tokens
+    """
+
     tokens = word_tokenize(text)
     lemmatizer = WordNetLemmatizer()
 
@@ -55,6 +67,9 @@ def tokenize(text):
 
 
 def build_model():
+    """
+    This function builds a model.
+    """
     pipeline = Pipeline([
         ('features', FeatureUnion([
 
@@ -89,6 +104,15 @@ def build_model():
 
 
 def evaluate_model(model, X_test, Y_test, category_names):
+    """
+    This function evaluates a model and print a report.
+
+    :param model: a model defined with the build_model function
+    :param X_test: a dataframe
+    :param Y_test: a target dataframe
+    :param category_names: a list of category names
+
+    """
     Y_pred = model.predict(X_test)
     for idx, category in enumerate(category_names):
         test = Y_test[category]
@@ -99,11 +123,20 @@ def evaluate_model(model, X_test, Y_test, category_names):
 
 
 def save_model(model, model_filepath):
+    """
+    This function saves a model with pkl format.
+
+    :param model: a model to save
+    :param model_filepath: a path of file to save the model
+    """
     with open(model_filepath, 'wb') as f:
         pickle.dump(model, f)
 
 
 def main():
+    """
+    This function executes all procedures defined previously.
+    """
     if len(sys.argv) == 3:
         database_filepath, model_filepath = sys.argv[1:]
         print('Loading data...\n    DATABASE: {}'.format(database_filepath))

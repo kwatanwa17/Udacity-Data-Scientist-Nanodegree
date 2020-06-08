@@ -5,6 +5,13 @@ from sqlalchemy import create_engine
 
 
 def load_data(messages_filepath, categories_filepath):
+    """
+    This function loads csv format data
+
+    :param messages_filepath: path of the messages data
+    :param categories_filepath: path of the categories data
+    :return: a merged data frame
+    """
     messages = pd.read_csv(messages_filepath)
     categories = pd.read_csv(categories_filepath)
     df = messages.merge(categories, on=['id'])
@@ -12,6 +19,12 @@ def load_data(messages_filepath, categories_filepath):
 
 
 def clean_data(df):
+    """
+    This function cleans a dataframe
+
+    :param df: a dataframe to clean data
+    :return: a cleaned dataframe
+    """
     categories = df['categories'].str.split(pat=';', expand=True)
 
     # select the first row of the categories dataframe
@@ -39,12 +52,19 @@ def clean_data(df):
 
 
 def save_data(df, database_filename):
+    """
+    :param df: a dataframe to save
+    :param database_filename: path of the SQL database to save the dataframe
+    """
     database_path = 'sqlite:///' + database_filename
     engine = create_engine(database_path)
     df.to_sql('project', engine, index=False)
 
 
 def main():
+    """
+    This function loads the csv format data, cleans and saves it to the SQL  database
+    """
     if len(sys.argv) == 4:
 
         messages_filepath, categories_filepath, database_filepath = sys.argv[1:]
