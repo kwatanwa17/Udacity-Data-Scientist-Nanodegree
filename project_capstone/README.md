@@ -25,7 +25,10 @@ As a Capstone Project of the Udacity Course, I decided to work with text data. T
  
 3. If you imported the notebook to the Kaggle, just click 'run all'
 
-* **Alternatively, you can find the results in [my kaggle page](https://www.kaggle.com/kwatanwa/nlp-twitter)**
+* **Alternatively, you can find the results in the following pages:
+- [blog](https://github.com/Kwatanwa17/github-blog/blob/master/content/blog/capstone-project/index.md)**
+- [my kaggle](https://www.kaggle.com/kwatanwa/nlp-twitter)**
+
 
 ### References
 
