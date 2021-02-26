@@ -9,4 +9,4 @@ You can find more detailed information on each folder.
 
 - project_1: Seattle Airbnb Data Analysis Project
 - project_3: Disaster Response Pipeline Project
-- project_capstone: Capstone Project 
+- project_capstone: Twitter Disaster Detection
